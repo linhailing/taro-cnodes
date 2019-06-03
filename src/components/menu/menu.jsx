@@ -52,11 +52,11 @@ class  Menu extends  Component{
     return (
       <View>
         <View className='header'>
-          <AtDrawer onClose={this.clickClose.bind(this)} mask style={style} onItemClick={this.clickCate.bind(this)} show={showDrawer}  items={items}/>
           <Image onClick={this.showDrawer.bind(this)} className='header-menu' src={menuImg} />
           <Text className='header-title'>{this.props.currMenu ? this.props.currMenu.value : ''}</Text>
           <Image className='header-login' src={loginImg} />
         </View>
+        <AtDrawer onClose={this.clickClose.bind(this)} mask style={style} onItemClick={this.clickCate.bind(this)} show={showDrawer}  items={items}/>
       </View>
     )
   }

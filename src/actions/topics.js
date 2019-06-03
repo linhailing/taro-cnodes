@@ -9,3 +9,16 @@ export function getTopis(params) {
     }
   }
 }
+
+export function getTopicNext(params) {
+  return async (dispatch) => {
+    let result = await getJSON(Api.apiTopics, params)
+    if (result && result.data){
+      if (result.data.success){
+        if (result.data.data.length > 0){
+          dispatch({type: 'getTopicsNext', list: result.data.data, page: params.page})
+        }
+      }
+    }
+  }
+}

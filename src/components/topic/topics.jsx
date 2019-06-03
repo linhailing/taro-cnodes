@@ -1,7 +1,7 @@
 import  Taro,{Component} from '@tarojs/taro';
-import  {View,Text,Button} from  '@tarojs/components';
+import  {View,Text, ScrollView} from  '@tarojs/components';
 import {connect} from '@tarojs/redux';
-import {getTopis} from "../../actions/topics";
+import {getTopis, getTopicNext} from "../../actions/topics";
 import Topic from './topic'
 
 @connect(function (store) {
@@ -10,6 +10,9 @@ import Topic from './topic'
   return {
     getTopics(params){
       dispatch(getTopis(params))
+    },
+    getTopicNext(params){
+      dispatch(getTopicNext(params))
     }
   }
 })
@@ -20,10 +23,17 @@ class Topics extends   Component{
     let {page, limit,currMenu} = this.props
     this.props.getTopics && this.props.getTopics({page: page, limit:limit,tab:currMenu.key})
   }
+  onScrollToLower(){
+    let {page, limit, currMenu} = this.props
+    this.props.getTopicNext && this.props.getTopicNext({page: (page + 1), limit: limit, tab: currMenu.key})
+  }
   render(){
     let {list} = this.props
-    return (<View>{ list.map( (item)=> <Topic item={item} /> )
-    }</View>)
+    let vStyleB = {
+      height: '650PX'
+    }
+    return (<ScrollView scrollY='true' style={vStyleB} onScrollToLower={this.onScrollToLower.bind(this)}>{ list.map( (item)=> <Topic item={item} /> )
+    }</ScrollView>)
   }
 }
 export default  Topics;
